@@ -21,10 +21,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
+    <title>Demandas e Lançamentos</title>
     <?= $this->Html->meta('icon') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
@@ -33,6 +30,18 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->Html->css('milligram.min.css') ?>
     <?= $this->Html->css('cake.css') ?>
 
+    <!-- jQuery Modal -->
+    <?= $this->Html->script('jquery.min.js') ?>
+    <?= $this->Html->script('jquery.modal.min.js') ?>
+    <?= $this->Html->css('jquery.modal.min.css') ?>
+
+    <!-- Custom css and js -->
+    <?= $this->Html->css('app.css') ?>
+    <?= $this->Html->script('app.js') ?>
+
+    <!-- Animate CSS -->
+    <?= $this->Html->css('animate.min.css') ?>
+
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -40,11 +49,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
     <nav class="top-nav">
         <div class="top-nav-title">
-            <a href="/"><span>Cake</span>PHP</a>
+            <a href="/"><span>Início</span></a>
         </div>
         <div class="top-nav-links">
-            <a target="_blank" href="https://book.cakephp.org/4/">Documentation</a>
-            <a target="_blank" href="https://api.cakephp.org/4/">API</a>
+            <?= $this->Html->link('Demandas', '/demands') ?>
+            <?= $this->Html->link('Lançamentos', '/releases') ?>
         </div>
     </nav>
     <main class="main">
