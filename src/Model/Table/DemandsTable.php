@@ -97,4 +97,22 @@ class DemandsTable extends Table
 
         $historyModel->save($historyData);
     }
+
+    public function getCount($demands)
+    {
+        $query = $demands
+            ->find()
+            ->count();
+
+        return $query;
+    }
+
+    public function getDemands($demands)
+    {
+        $query = $demands
+            ->find()
+            ->select(['demand', 'effort']);
+
+        return $query;
+    }
 }

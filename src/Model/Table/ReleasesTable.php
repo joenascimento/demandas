@@ -86,4 +86,33 @@ class ReleasesTable extends Table
 
         return $rules;
     }
+
+    public function getCount($releases)
+    {
+        $query = $releases
+            ->find()
+            ->count();
+        
+        return $query;
+    }
+
+    public function getReleases($releases)
+    {
+        $query = $releases
+            ->find()
+            ->contain('Demands')
+            ->select(['Demands.demand', 'hour']);
+
+        return $query;
+    }
+
+    public function getEffort($releases)
+    {
+        $query = $releases
+            ->find()
+            ->contain('Demands')
+            ->select(['Demands.demand', 'Demands.effort', 'hour']);
+
+        return $query;
+    }
 }
