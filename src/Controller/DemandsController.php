@@ -55,11 +55,11 @@ class DemandsController extends AppController
             $demand = $this->Demands->patchEntity($demand, $this->request->getData());
             if ($this->Demands->save($demand)) {
                 $this->Demands->insertDemandHistory($demandHistoryModel, $demand, $demandHistory);
-                $this->Flash->success(__('The demand has been saved.'));
+                $this->Flash->success(__('A Demanda foi criada.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The demand could not be saved. Please, try again.'));
+            $this->Flash->error(__('A demanda não foi criada. Tente novamente.'));
         }
         $this->set(compact('demand'));
     }
@@ -73,17 +73,20 @@ class DemandsController extends AppController
      */
     public function edit($id = null)
     {
+        $demandHistoryModel = $this->loadModel('DemandsHistory');
+        $demandHistory = $this->DemandsHistory->newEmptyEntity();
         $demand = $this->Demands->get($id, [
             'contain' => [],
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $demand = $this->Demands->patchEntity($demand, $this->request->getData());
             if ($this->Demands->save($demand)) {
-                $this->Flash->success(__('The demand has been saved.'));
+                $this->Demands->updateDemandHistory($demandHistoryModel, $demand, $demandHistory);
+                $this->Flash->success(__('A demanda foi editada.'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The demand could not be saved. Please, try again.'));
+            $this->Flash->error(__('A demanda não foi editada. Tente novamente.'));
         }
         $this->set(compact('demand'));
     }
@@ -100,9 +103,9 @@ class DemandsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $demand = $this->Demands->get($id);
         if ($this->Demands->delete($demand)) {
-            $this->Flash->success(__('The demand has been deleted.'));
+            $this->Flash->success(__('A demanda foi deletada.'));
         } else {
-            $this->Flash->error(__('The demand could not be deleted. Please, try again.'));
+            $this->Flash->error(__('A demanda não foi criada. Tente novamente'));
         }
 
         return $this->redirect(['action' => 'index']);
