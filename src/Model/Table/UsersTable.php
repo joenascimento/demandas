@@ -57,20 +57,9 @@ class UsersTable extends Table
     public function validationDefault(Validator $validator): Validator
     {
         $validator
-            ->integer('id')
-            ->allowEmptyString('id', null, 'create');
-
-        $validator
-            ->scalar('name')
-            ->maxLength('name', 100)
-            ->requirePresence('name', 'create')
-            ->notEmptyString('name');
-
-        $validator
-            ->email('email')
-            ->requirePresence('email', 'create')
-            ->notEmptyString('email');
-
+            ->notEmpty('name', 'Nome não pode ser vazio')
+            ->notEmpty('email', 'Email não pode ser vazio')
+            ->notEmpty('password', 'Senha não pode ser vazio');
         return $validator;
     }
 
