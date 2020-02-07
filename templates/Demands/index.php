@@ -28,7 +28,7 @@
                     <td><?= h($demand->demand) ?></td>
                     <td><?= h($demand->description) ?></td>
                     <td><?= $this->Number->format($demand->effort) ?></td>
-                    <td><?= $this->Number->format($demand->closed) ?></td>
+                    <td><?= $this->Custom->convertNumberToString($demand->closed) ?></td>
                     <td><?= h($demand->created) ?></td>
                     <td><?= h($demand->modified) ?></td>
                     <td class="actions">

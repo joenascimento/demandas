@@ -19,8 +19,10 @@
                     <?= $this->Form->control('demand', ['label' => 'Demanda']) ?>
                     <?= $this->Form->control('description', ['label' => 'Descrição']) ?>
                     <?= $this->Form->control('effort', ['label' => 'Esforço']) ?>
-                    <?= $this->Form->label('Fechado') ?>
-                    <?= $this->Form->checkbox('closed') ?>
+                    <label class="checkbox c-3"> Fechado
+                        <?= $this->Form->checkbox('closed') ?>
+                        <span class="checkmark"></span>
+                    </label>
             </fieldset>
             <?= $this->Form->button(__('Enviar')) ?>
             <?= $this->Form->end() ?>
