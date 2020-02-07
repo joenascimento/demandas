@@ -105,7 +105,7 @@ class DemandsController extends AppController
         if ($this->Demands->delete($demand)) {
             $this->Flash->success(__('A demanda foi deletada.'));
         } else {
-            $this->Flash->error(__('A demanda não foi criada. Tente novamente'));
+            $this->Flash->error(__('A demanda não foi deletada. Tente novamente'));
         }
 
         return $this->redirect(['action' => 'index']);
