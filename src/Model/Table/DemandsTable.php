@@ -80,22 +80,61 @@ class DemandsTable extends Table
             ->requirePresence('effort', 'create')
             ->notEmptyString('effort');
 
-        $validator
-            ->integer('closed')
-            ->requirePresence('closed', 'create')
-            ->notEmptyString('closed');
-
         return $validator;
+    }
+
+    public function buildRules(RulesChecker $rules): RulesChecker
+    {
+        $rules->add($rules->isUnique(['demand'], 'Esta demanda já existe'));
+
+        return $rules;
     }
 
     public function insertDemandHistory($historyModel, $demandData, $historyData)
     {
         $historyData->demand_id = $demandData->id;
-        $historyData->updated_effort = $demandData->effort;
+        $historyData->effort = $demandData->effort;
         $historyData->created = $historyModel->query()->func()->now();
         $historyData->modified = $historyModel->query()->func()->now();
 
         $historyModel->save($historyData);
+    }
+
+    public function updateDemandHistory($historyModel, $demandData, $historyData)
+    {
+        $historyData->demand_id = $demandData->id;
+        $historyData->effort = $this->getEffort($demandData->id);
+        $historyData->updated_effort = $demandData->effort;
+        $historyData->created = $this->getCreated($demandData->id);
+        $historyData->modified = $historyModel->query()->func()->now();
+
+        $historyModel->save($historyData);
+    }
+
+    private function getCreated($demandId)
+    {
+        $query = $this
+            ->find()
+            ->select(['id', 'created'])
+            ->where(['id' => $demandId])
+            ->execute();
+
+        foreach($query as $key) {
+            return $key['Demands__created'];
+        }
+    }
+
+    public function getEffort($demandId)
+    {
+        $query = $this
+            ->find()
+            ->select(['id', 'effort'])
+            ->where(['id' => $demandId])
+            ->execute();
+
+        foreach($query as $key) {
+            return $key['Demands__effort'];
+        }
     }
 
     public function getCount($demands)
