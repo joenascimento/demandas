@@ -7,7 +7,7 @@
             <fieldset>
                 <legend><?= __('Por favor informe seu usuário e senha') ?></legend>
                 <?= $this->Form->label('Usuário') ?>
-                <?= $this->Form->input('email', ['type' => 'text']) ?>
+                <?= $this->Form->input('email', ['type' => 'text', 'placeholder' => 'Informe o e-mail cadastrado']) ?>
                 <?= $this->Form->label('Senha') ?>
                 <?= $this->Form->input('password', ['type' => 'password']) ?>
             </fieldset>
