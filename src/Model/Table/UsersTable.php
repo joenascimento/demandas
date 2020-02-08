@@ -72,7 +72,7 @@ class UsersTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['email']));
+        $rules->add($rules->isUnique(['email'], 'Email já cadastrado'));
         $rules->add($rules->existsIn(['role_id'], 'Roles'));
 
         return $rules;
