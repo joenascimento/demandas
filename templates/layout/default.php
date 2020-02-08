@@ -51,10 +51,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <div class="top-nav-title">
             <a href="/"><span>Início</span></a>
         </div>
+        <?php if($loggedIn): ?>
         <div class="top-nav-links">
             <?= $this->Html->link('Demandas', '/demands') ?>
             <?= $this->Html->link('Lançamentos', '/releases') ?>
+            <?= $this->Html->link('Logout', '/users/logout',['class' => 'button']) ?>
         </div>
+        <?php else: ?>
+        <div class="top-nav-links">
+            <?= $this->Html->link('Cadastrar', '/users/add', ['class' => 'button']) ?>
+        </div>
+        <?php endif; ?>
     </nav>
     <main class="main">
         <div class="container">
