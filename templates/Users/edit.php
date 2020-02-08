@@ -23,6 +23,7 @@
                 <legend><?= __('Editar Usuário') ?></legend>
                 <?= $this->Form->control('name', ['label' => 'Nome']) ?>
                 <?= $this->Form->control('email') ?>
+                <?= $this->Form->control('password') ?>
                 <?= $this->Form->control('role_id', ['options' => $roles, 'class' => 'c-4']) ?>
             </fieldset>
             <?= $this->Form->button(__('Enviar')) ?>

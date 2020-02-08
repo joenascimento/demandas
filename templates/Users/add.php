@@ -37,7 +37,6 @@
                 <?= $this->Form->control('name', ['label' => 'Nome', 'placeholder' => 'Nome Completo']) ?>
                 <?= $this->Form->control('email', ['placeholder' => 'Informe seu e-email']) ?>
                 <?= $this->Form->control('password', ['label' => 'Senha', 'placeholder' => 'Informe sua senha']) ?>
-                <?= $this->Form->control('role_id', ['options' => $roles]) ?>
             </fieldset>
             <?= $this->Form->button(__('Enviar')) ?>
             <?= $this->Form->end() ?>

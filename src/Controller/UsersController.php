@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Cake\Event\EventInterface;
+
 /**
  * Users Controller
  *
@@ -12,6 +14,31 @@ namespace App\Controller;
  */
 class UsersController extends AppController
 {
+    public function beforeFilter(EventInterface $event)
+    {
+        parent::beforeFilter($event);
+        $this->Auth->allow(['add', 'logout']);
+
+        $this->set('loggedIn', $this->Auth->user());
+    }
+
+    public function login()
+    {
+        if ($this->request->is('post')) {
+            $user = $this->Auth->identify();
+            if ($user) {
+                $this->Auth->setUser($user);
+                return $this->redirect($this->Auth->redirectUrl());
+            }
+            $this->Flash->error('Usuário ou senha inválidos');
+        }
+    }
+
+    public function logout()
+    {
+        return $this->redirect($this->Auth->logout());
+    }
+
     /**
      * Index method
      *
@@ -53,6 +80,7 @@ class UsersController extends AppController
         $user = $this->Users->newEmptyEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
+            $user->role_id = 2;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('Usuário foi criado.'));
 

@@ -17,6 +17,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Controller\Component\AuthComponent;
+use Cake\Event\EventInterface;
 
 /**
  * Application Controller
@@ -43,11 +45,31 @@ class AppController extends Controller
 
         $this->loadComponent('RequestHandler');
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => [
+                'controller' => 'Reports',
+                'action' => 'index'
+            ],
+            'logoutRedirect' => [
+                'controller' => 'Users',
+                'action' => 'login'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'fields' => [ 'username' => 'email']
+                ]
+            ]
+        ]);
 
         /*
          * Enable the following component for recommended CakePHP form protection settings.
          * see https://book.cakephp.org/4/en/controllers/components/form-protection.html
          */
         //$this->loadComponent('FormProtection');
+    }
+
+    public function beforeFilter(EventInterface $event)
+    {
+        $this->set('loggedIn', $this->Auth->user());
     }
 }
